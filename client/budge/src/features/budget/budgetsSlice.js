@@ -15,8 +15,12 @@ export const budgetSlice = createSlice({
     fetchBudget: (state) => {
       state.budgets = budgetUtils.fetchBudget();
     },
+    addBudget: (state, payload) => {
+      let { name, amount } = payload.payload;
+      budgetUtils.addBudget(name, amount);
+    },
   },
 });
 
-export const { fetchBudget } = budgetSlice.actions;
+export const { fetchBudget, addBudget } = budgetSlice.actions;
 export default budgetSlice.reducer;

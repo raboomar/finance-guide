@@ -1,22 +1,19 @@
-import { useState } from "react";
 import { Container } from "react-bootstrap";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import AddBudgetModal from "./components/budget/AddBudgetModal";
+
 import BudgetContainer from "./components/budget/BudgetContainer";
-import BudgetStack from "./components/budget/BudgetStack";
-import Month from "./components/date/Month";
+import NoMatch from "./features/error/NoMatch";
+import Home from "./features/home/Home";
 
 function App() {
-  const [showAddBudgetModal, setShowAddBudgetModal] = useState(false);
   return (
     <Container className="my-4">
-      <BudgetStack showAddBudgetModel={() => setShowAddBudgetModal(true)} />
-      <AddBudgetModal
-        show={showAddBudgetModal}
-        handleClose={() => setShowAddBudgetModal(false)}
-      />
-      <Month />
-      <BudgetContainer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/budget" element={<BudgetContainer />} />
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
     </Container>
   );
 }

@@ -14,9 +14,10 @@ export const expenseSlice = createSlice({
     fetchExpense: (state, payload) => {
       state.expense = budgetUtils.fetchExpense(payload.payload);
     },
+
     addExpense: (state, payload) => {
-      let { name, amount } = payload.payload;
-      budgetUtils.addBudget(name, amount);
+      let { name, amount, budgetId } = payload.payload;
+      budgetUtils.addExpense(name, budgetId, amount);
     },
   },
 });

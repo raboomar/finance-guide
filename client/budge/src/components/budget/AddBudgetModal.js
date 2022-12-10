@@ -1,24 +1,31 @@
 import React, { useRef } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchBudget } from "../../features/budget/budgetsSlice";
-import { addExpense } from "../../features/budget/expenseSlice";
-const AddBudgetModal = ({ show, handleClose }) => {
+import { addBudget } from "../../features/budget/budgetsSlice";
+import { showAddBudgetModal } from "../../features/modal/modalStateSlice";
+const AddBudgetModal = () => {
   const dispatch = useDispatch();
+  const { addBudgetModal } = useSelector((state) => state.modalState);
   const nameRef = useRef();
   const maxRef = useRef();
+
+  const closeModal = () => {
+    dispatch(showAddBudgetModal());
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let newBudget = {
       name: nameRef.current.value,
       amount: parseFloat(maxRef.current.value),
     };
-    dispatch(addExpense(newBudget));
+    dispatch(addBudget(newBudget));
     dispatch(fetchBudget());
-    handleClose();
+    closeModal();
   };
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={addBudgetModal} onHide={closeModal}>
       <Form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>New Budget</Modal.Title>

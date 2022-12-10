@@ -21,53 +21,53 @@ let expense = [
     dateId: "12 2022",
   },
   {
-    id: "test1",
+    id: "test13",
     budgetId: "gym12",
     amount: 100,
     name: "mike",
     dateId: "11 2022",
   },
   {
-    id: "test1",
+    id: "test14",
     budgetId: "gym12",
     amount: 100,
     name: "mike",
     dateId: "12 2022",
   },
   {
-    id: "test1",
+    id: "test15",
     budgetId: "gym12",
     amount: 100,
     name: "mike",
     dateId: "12 2022",
   },
   {
-    id: "test1",
+    id: "test16",
     budgetId: "food12",
     amount: 100,
     name: "mike",
     dateId: "12 2022",
   },
   {
-    id: "test1",
+    id: "test17",
     budgetId: "food12",
     amount: 100,
     name: "mike",
     dateId: "12 2022",
   },
   {
-    id: "test1",
+    id: "test18",
     budgetId: "food12",
     amount: 100,
     name: "mike",
     dateId: "12 2022",
   },
   {
-    id: "test1",
+    id: "test19",
     budgetId: "food12",
     amount: 100,
     name: "mike",
-    dateId: "12 2022",
+    dateId: "1 2022",
   },
 ];
 
@@ -117,8 +117,7 @@ const fetchExpense = (budgetId) => {
   let today = new Date();
   let date = `${today.getMonth() + 1} ${today.getFullYear()}`;
   return expense.filter((expense) => expense.dateId === date);
-  return expense.filter((expense) => expense.budgetId === budgetId);
 };
 
-const budgetUtils = { fetchBudget, fetchExpense, addBudget };
+const budgetUtils = { fetchBudget, fetchExpense, addBudget, addExpense };
 export default budgetUtils;
