@@ -16,9 +16,10 @@ let expense = [
   {
     id: "test1",
     budgetId: "food12",
-    amount: 100,
+    amount: 100.78,
     name: "mike",
     dateId: "12 2022",
+    date: "12/23/2022",
   },
   {
     id: "test13",
@@ -26,6 +27,7 @@ let expense = [
     amount: 100,
     name: "mike",
     dateId: "11 2022",
+    date: "12/23/2022",
   },
   {
     id: "test14",
@@ -33,6 +35,7 @@ let expense = [
     amount: 100,
     name: "mike",
     dateId: "12 2022",
+    date: "12/23/2022",
   },
   {
     id: "test15",
@@ -40,6 +43,7 @@ let expense = [
     amount: 100,
     name: "mike",
     dateId: "12 2022",
+    date: "12/23/2022",
   },
   {
     id: "test16",
@@ -47,6 +51,7 @@ let expense = [
     amount: 100,
     name: "mike",
     dateId: "12 2022",
+    date: "12/23/2022",
   },
   {
     id: "test17",
@@ -54,6 +59,7 @@ let expense = [
     amount: 100,
     name: "mike",
     dateId: "12 2022",
+    date: "12/23/2022",
   },
   {
     id: "test18",
@@ -61,6 +67,7 @@ let expense = [
     amount: 100,
     name: "mike",
     dateId: "12 2022",
+    date: "12/23/2022",
   },
   {
     id: "test19",
@@ -68,6 +75,7 @@ let expense = [
     amount: 100,
     name: "mike",
     dateId: "1 2022",
+    date: "12/23/2022",
   },
 ];
 

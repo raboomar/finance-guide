@@ -1,30 +1,42 @@
 import React, { useRef } from "react";
+import { useEffect } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchExpense } from "../../features/budget/expenseSlice";
-import { addExpense } from "../../features/budget/expenseSlice";
+import { fetchCategory } from "../../features/category/categorySlice";
+import {
+  addUserExpense,
+  fetchUserExpense,
+} from "../../features/expense/expenseSlice";
+
 import { showAddExpenseModal } from "../../features/modal/modalStateSlice";
 const AddExpenseModal = ({ defaultBudgetId }) => {
   const dispatch = useDispatch();
-  const { budgets } = useSelector((state) => state.budget);
   const { addExpenseModal } = useSelector((state) => state.modalState);
+  const { category } = useSelector((state) => state.category);
   const hide = () => {
     dispatch(showAddExpenseModal());
   };
   const nameRef = useRef();
   const amountRef = useRef();
-  const budgetIdRef = useRef();
+  const categoryIdRef = useRef();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     let newExpense = {
       name: nameRef.current.value,
       amount: parseFloat(amountRef.current.value),
-      budgetId: budgetIdRef.current.value,
+      categoryId: categoryIdRef.current.value,
     };
-    dispatch(addExpense(newExpense));
-    dispatch(fetchExpense());
+    dispatch(addUserExpense(newExpense));
+
+    dispatch(fetchUserExpense());
     hide();
   };
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, []);
+
   return (
     <Modal show={addExpenseModal} onHide={hide}>
       <Form onSubmit={handleSubmit}>
@@ -48,10 +60,13 @@ const AddExpenseModal = ({ defaultBudgetId }) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="budgetId">
             <Form.Label>Budget</Form.Label>
-            <Form.Select defaultValue={defaultBudgetId} ref={budgetIdRef}>
-              {budgets.map((budget) => (
-                <option key={budget.id} value={budget.id}>
-                  {budget.name}
+            <Form.Select defaultValue={defaultBudgetId} ref={categoryIdRef}>
+              {category.map((categorys) => (
+                <option
+                  key={categorys.category_id}
+                  value={categorys.category_id}
+                >
+                  {categorys.category_name}
                 </option>
               ))}
             </Form.Select>

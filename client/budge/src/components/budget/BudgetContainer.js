@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBudget } from "../../features/budget/budgetsSlice";
-import { fetchExpense } from "../../features/budget/expenseSlice";
+import { fetchExpense } from "../../features/expense/expenseSlice";
 import BudgetsCard from "./BudgetsCard";
 import "./budget.css";
 import BudgetStack from "./BudgetStack";
@@ -28,7 +28,7 @@ const BudgetContainer = () => {
       <BudgetStack />
       <div className="budget-card-container">
         <AddBudgetModal />
-        <AddExpenseModal defaultBudgetId={showAddExpenseModalBudgetId} />
+
         {budgets.map((budget) => {
           let amount = expense
             .filter((expense) => expense.budgetId === budget.id)

@@ -1,0 +1,16 @@
+.expense-card{
+    /* background-color: bisque; */
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2fr 2fr  2fr   2fr   1fr ;
+    margin: 0.5rem 0;
+justify-content: space-between;
+    text-align: center;
+    border-bottom: 1px solid black;
+   
+}
+.trash-btn{
+    border: 0;
+    background-color: transparent;
+    margin-bottom: 13px;
+}

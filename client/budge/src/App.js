@@ -3,18 +3,26 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
 import BudgetContainer from "./components/budget/BudgetContainer";
-import NoMatch from "./features/error/NoMatch";
-import Home from "./features/home/Home";
+import AddExpenseModal from "./components/expense/AddExpenseModal";
+import NavBar from "./components/nav/NavBar";
+import NoMatch from "./pages/error/NoMatch";
+import Home from "./pages/home/Home";
+import Transactions from "./pages/transactions/Transactions";
 
 function App() {
   return (
-    <Container className="my-4">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/budget" element={<BudgetContainer />} />
-        <Route path="*" element={<NoMatch />} />
-      </Routes>
-    </Container>
+    <>
+      <NavBar />
+      <Container className="my-4">
+        <AddExpenseModal />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/budget" element={<BudgetContainer />} /> */}
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
+      </Container>
+    </>
   );
 }
 
