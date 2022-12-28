@@ -3,9 +3,11 @@ import budgetUtils from "../budget/budgetUtils";
 import expenseUtils from "./expenseUtils";
 const initialState = {
   expense: [],
+  expenseByCategory: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
+  expenseByCategoryIsLoading: false,
 };
 
 export const fetchUserExpense = createAsyncThunk(
@@ -13,6 +15,24 @@ export const fetchUserExpense = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       return await expenseUtils.fetchUserExpense();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const fetchUserExpenseByCategory = createAsyncThunk(
+  "/userExpenseCategory",
+  async (user, thunkAPI) => {
+    try {
+      return await expenseUtils.fetchUserExpenseByCategory();
     } catch (error) {
       const message =
         (error.response &&
@@ -77,6 +97,17 @@ export const expenseSlice = createSlice({
         state.expense = payload.payload;
       })
       .addCase(fetchUserExpense.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(fetchUserExpenseByCategory.pending, (state) => {
+        state.expenseByCategoryIsLoading = true;
+      })
+      .addCase(fetchUserExpenseByCategory.fulfilled, (state, payload) => {
+        state.expenseByCategoryIsLoading = false;
+        state.expenseByCategory = payload.payload;
+      })
+      .addCase(fetchUserExpenseByCategory.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       })

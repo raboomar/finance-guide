@@ -15,6 +15,21 @@ const fetchUserExpense = async () => {
   return res.data;
 };
 
+const fetchUserExpenseByCategory = async () => {
+  let config = {
+    headers: {
+      month: 12,
+      year: 2022,
+    },
+  };
+
+  let res = await axios.get(
+    "http://127.0.0.1:5001/budgeapp-b963e/us-central1/app/transactions/category",
+    config
+  );
+  return res.data;
+};
+
 const addUserExpense = async (newExpense) => {
   let today = new Date();
 
@@ -50,5 +65,10 @@ const deleteTransaction = async (transactionId, expenses) => {
   );
 };
 
-const expenseUtils = { fetchUserExpense, addUserExpense, deleteTransaction };
+const expenseUtils = {
+  fetchUserExpense,
+  addUserExpense,
+  deleteTransaction,
+  fetchUserExpenseByCategory,
+};
 export default expenseUtils;

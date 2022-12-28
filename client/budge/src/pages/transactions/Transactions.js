@@ -1,24 +1,31 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddExpenseBtn from "../../components/buttons/AddExpenseBtn";
-import DeleteTransaction from "../../components/transactions/DeleteTransaction";
 import TransactionsCard from "../../components/transactions/TransactionsCard";
-import { fetchUserExpense } from "../../features/expense/expenseSlice";
+import {
+  fetchUserExpense,
+  fetchUserExpenseByCategory,
+} from "../../features/expense/expenseSlice";
 import "./transaction.css";
+import BarChart from "../../components/transactions/BarChart";
 const Transactions = () => {
   const dispatch = useDispatch();
-  const { expense, isLoading } = useSelector((state) => state.expense);
+  const { expense, isLoading, expenseByCategoryIsLoading, expenseByCategory } =
+    useSelector((state) => state.expense);
 
   useEffect(() => {
     dispatch(fetchUserExpense());
+    dispatch(fetchUserExpenseByCategory());
   }, []);
 
-  if (isLoading) {
+  if (isLoading || expenseByCategoryIsLoading) {
     return <h1>Loading.....</h1>;
   }
 
   return (
     <>
+      <BarChart dataSet={expenseByCategory} />
+
       <div className="transactions-btns">
         <div className="add-expense">
           <AddExpenseBtn />

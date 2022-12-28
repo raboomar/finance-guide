@@ -1,7 +1,5 @@
 import React from "react";
 import { useState } from "react";
-
-import { deleteTransaction } from "../../features/expense/expenseSlice";
 import { currencyFormatter } from "../../utils/format";
 import DeleteTransaction from "./DeleteTransaction";
 import "./reansactionCars.css";
