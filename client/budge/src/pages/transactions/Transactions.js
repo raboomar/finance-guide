@@ -8,8 +8,11 @@ import {
 } from "../../features/expense/expenseSlice";
 import "./transaction.css";
 import BarChart from "../../components/transactions/BarChart";
+import { useNavigate } from "react-router-dom";
 const Transactions = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
   const { expense, isLoading, expenseByCategoryIsLoading, expenseByCategory } =
     useSelector((state) => state.expense);
 
@@ -21,7 +24,9 @@ const Transactions = () => {
   if (isLoading || expenseByCategoryIsLoading) {
     return <h1>Loading.....</h1>;
   }
-
+  if (!user) {
+    navigate("/auth");
+  }
   return (
     <>
       <BarChart dataSet={expenseByCategory} />

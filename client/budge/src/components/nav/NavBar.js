@@ -2,13 +2,22 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logout, reset } from "../../features/user/userSlice";
 const NavBar = () => {
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleNavigate = (whereTo) => {
     navigate(whereTo);
+  };
+
+  const handleLogout = () => {
+    dispatch(reset());
+    dispatch(logout());
+    handleNavigate("/");
   };
   return (
     <Navbar bg="light" expand="lg">
@@ -30,20 +39,32 @@ const NavBar = () => {
             >
               Home
             </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                handleNavigate("/transactions");
-              }}
-            >
-              Transactions
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                handleNavigate("/budget");
-              }}
-            >
-              Budgets
-            </Nav.Link>
+            {user ? (
+              <>
+                <Nav.Link
+                  onClick={() => {
+                    handleNavigate("/transactions");
+                  }}
+                >
+                  Transactions
+                </Nav.Link>
+                <Nav.Link
+                  onClick={() => {
+                    handleLogout();
+                  }}
+                >
+                  Logout
+                </Nav.Link>
+              </>
+            ) : (
+              <Nav.Link
+                onClick={() => {
+                  handleNavigate("/auth");
+                }}
+              >
+                Log-in
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
