@@ -11,7 +11,9 @@ import {
 import { showAddExpenseModal } from "../../features/modal/modalStateSlice";
 const AddExpenseModal = ({ defaultBudgetId }) => {
   const dispatch = useDispatch();
-  const { addExpenseModal } = useSelector((state) => state.modalState);
+  const { addExpenseModal, isLoading } = useSelector(
+    (state) => state.modalState
+  );
   const { category } = useSelector((state) => state.category);
   const hide = () => {
     dispatch(showAddExpenseModal());
@@ -30,7 +32,7 @@ const AddExpenseModal = ({ defaultBudgetId }) => {
     };
     dispatch(addUserExpense(newExpense));
 
-    dispatch(fetchUserExpense());
+    // dispatch(fetchUserExpense());
     hide();
   };
   useEffect(() => {

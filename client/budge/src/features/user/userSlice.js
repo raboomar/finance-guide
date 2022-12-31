@@ -8,20 +8,17 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  registerIsError: false,
+  registerIsSuccess: false,
+  registerIsLoading: false,
 };
-
 export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
     try {
       return await authService.register(user);
     } catch (error) {
-      const message =
-        error.response ||
-        error.response.data ||
-        error.response.data.message ||
-        error.message ||
-        error.toString();
+      const message = error.response && error.response.data;
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -50,21 +47,24 @@ export const authSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
+      state.registerIsError = false;
+      state.registerIsSuccess = false;
+      state.registerIsLoading = false;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
-        state.isLoading = true;
+        state.registerIsLoading = true;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
+        state.registerIsLoading = false;
+        state.registerIsSuccess = true;
         state.user = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
+        state.registerIsLoading = false;
+        state.registerIsError = true;
         state.message = action.payload;
         state.user = null;
       })

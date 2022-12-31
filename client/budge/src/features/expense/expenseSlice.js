@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import budgetUtils from "../budget/budgetUtils";
 import expenseUtils from "./expenseUtils";
 const initialState = {
   expense: [],
@@ -14,7 +13,10 @@ export const fetchUserExpense = createAsyncThunk(
   "/userExpense",
   async (user, thunkAPI) => {
     try {
-      return await expenseUtils.fetchUserExpense();
+      const token = thunkAPI.getState().user.user.token;
+      const month = thunkAPI.getState().month.monthNum;
+      const year = thunkAPI.getState().month.year;
+      return await expenseUtils.fetchUserExpense(token, month, year);
     } catch (error) {
       const message =
         (error.response &&
@@ -32,7 +34,10 @@ export const fetchUserExpenseByCategory = createAsyncThunk(
   "/userExpenseCategory",
   async (user, thunkAPI) => {
     try {
-      return await expenseUtils.fetchUserExpenseByCategory();
+      const token = thunkAPI.getState().user.user.token;
+      const month = thunkAPI.getState().month.monthNum;
+      const year = thunkAPI.getState().month.year;
+      return await expenseUtils.fetchUserExpenseByCategory(token, month, year);
     } catch (error) {
       const message =
         (error.response &&
@@ -50,7 +55,11 @@ export const addUserExpense = createAsyncThunk(
   "/addUserExpense",
   async (expenseData, thunkAPI) => {
     try {
-      return await expenseUtils.addUserExpense(expenseData);
+      const token = thunkAPI.getState().user.user.token;
+
+      const month = thunkAPI.getState().month.monthNum;
+      const year = thunkAPI.getState().month.year;
+      return await expenseUtils.addUserExpense(expenseData, token, month, year);
     } catch (error) {
       const message =
         (error.response &&

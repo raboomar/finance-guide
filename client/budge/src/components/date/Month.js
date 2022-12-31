@@ -1,15 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Month = () => {
-  let today = new Date();
-
-  let month = today.toLocaleString("default", {
-    month: "long",
-    year: "numeric",
-  });
+  const { month, year } = useSelector((state) => state.month);
   return (
     <div className="me-4">
-      <h3>{month}</h3>
+      <h3>{`${month} ${year}`}</h3>
     </div>
   );
 };

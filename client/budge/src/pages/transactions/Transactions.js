@@ -9,6 +9,8 @@ import {
 import "./transaction.css";
 import BarChart from "../../components/transactions/BarChart";
 import { useNavigate } from "react-router-dom";
+import Month from "../../components/date/Month";
+import { fetchCurrentDate } from "../../features/month/monthSlice";
 const Transactions = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,18 +19,22 @@ const Transactions = () => {
     useSelector((state) => state.expense);
 
   useEffect(() => {
-    dispatch(fetchUserExpense());
-    dispatch(fetchUserExpenseByCategory());
-  }, []);
+    if (!user) {
+      navigate("/auth");
+    } else {
+      dispatch(fetchCurrentDate());
+      dispatch(fetchUserExpense());
+      dispatch(fetchUserExpenseByCategory());
+    }
+  }, [dispatch, navigate, user]);
 
   if (isLoading || expenseByCategoryIsLoading) {
     return <h1>Loading.....</h1>;
   }
-  if (!user) {
-    navigate("/auth");
-  }
+
   return (
     <>
+      <Month />
       <BarChart dataSet={expenseByCategory} />
 
       <div className="transactions-btns">

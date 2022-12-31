@@ -4,6 +4,7 @@ import expenseReducer from "../features/expense/expenseSlice";
 import modalStateReducer from "../features/modal/modalStateSlice";
 import categoryReducer from "../features/category/categorySlice";
 import userReducer from "../features/user/userSlice";
+import monthReducer from "../features/month/monthSlice";
 export const store = configureStore({
   reducer: {
     budget: budgetReducer,
@@ -11,6 +12,7 @@ export const store = configureStore({
     category: categoryReducer,
     modalState: modalStateReducer,
     user: userReducer,
+    month: monthReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

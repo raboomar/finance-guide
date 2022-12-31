@@ -1,36 +1,33 @@
 import axios from "axios";
 import moment from "moment/moment";
-const fetchUserExpense = async () => {
+let URL = process.env.REACT_APP_BACKEND_URL;
+const fetchUserExpense = async (token, month, year) => {
   let config = {
     headers: {
-      month: 12,
-      year: 2022,
+      month: month,
+      year: year,
+      "x-auth-token": token,
     },
   };
 
-  let res = await axios.get(
-    "http://127.0.0.1:5001/budgeapp-b963e/us-central1/app/transactions/get",
-    config
-  );
+  let res = await axios.get(`${URL}transactions/get`, config);
   return res.data;
 };
 
-const fetchUserExpenseByCategory = async () => {
+const fetchUserExpenseByCategory = async (token, month, year) => {
   let config = {
     headers: {
-      month: 12,
-      year: 2022,
+      month,
+      year,
+      "x-auth-token": token,
     },
   };
 
-  let res = await axios.get(
-    "http://127.0.0.1:5001/budgeapp-b963e/us-central1/app/transactions/category",
-    config
-  );
+  let res = await axios.get(`${URL}transactions/category`, config);
   return res.data;
 };
 
-const addUserExpense = async (newExpense) => {
+const addUserExpense = async (newExpense, token, month, year) => {
   let today = new Date();
 
   let date = moment(today).format("YYYY-MM-DD");
@@ -39,27 +36,26 @@ const addUserExpense = async (newExpense) => {
     date,
     name: name,
     amount: amount,
-    user_id: 1,
     category_id: categoryId,
   });
 
   var config = {
     method: "post",
-    url: "http://127.0.0.1:5001/budgeapp-b963e/us-central1/app/transactions/add",
+    url: `${URL}transactions/add`,
     headers: {
       "Content-Type": "application/json",
+      "x-auth-token": token,
     },
     data: data,
   };
 
-  let res = await axios(config);
-  return await fetchUserExpense();
+  await axios(config);
+
+  return await fetchUserExpense(token, month, year);
 };
 
 const deleteTransaction = async (transactionId, expenses) => {
-  await axios.delete(
-    `http://127.0.0.1:5001/budgeapp-b963e/us-central1/app/transactions/delete/${transactionId}`
-  );
+  await axios.delete(`${URL}transactions/delete/${transactionId}`);
   return expenses.filter(
     (expenses) => expenses.transaction_id !== transactionId
   );
