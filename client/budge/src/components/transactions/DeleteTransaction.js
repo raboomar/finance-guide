@@ -1,6 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteTransaction } from "../../features/expense/expenseSlice";
+import {
+  deleteTransaction,
+  fetchUserExpenseByCategory,
+} from "../../features/expense/expenseSlice";
 import { FaTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "./reansactionCars.css";
@@ -8,6 +11,7 @@ const DeleteTransaction = ({ expenseId }) => {
   const dispatch = useDispatch();
   const handleDelete = (id) => {
     dispatch(deleteTransaction(id));
+    dispatch(fetchUserExpenseByCategory());
     toast.success("Removed!");
   };
 

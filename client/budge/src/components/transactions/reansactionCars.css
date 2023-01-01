@@ -1,5 +1,4 @@
 .expense-card{
-    /* background-color: bisque; */
     display: grid;
     align-items: center;
     grid-template-columns: 2fr 2fr  2fr   2fr   1fr ;
@@ -13,4 +12,8 @@ justify-content: space-between;
     border: 0;
     background-color: transparent;
     margin-bottom: 13px;
+}
+.doughnut-chart{ 
+  width: 400px;
+  margin: auto;
 }

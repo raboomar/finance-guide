@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategory } from "../../features/category/categorySlice";
 import {
   addUserExpense,
-  fetchUserExpense,
+  fetchUserExpenseByCategory,
 } from "../../features/expense/expenseSlice";
 
 import { showAddExpenseModal } from "../../features/modal/modalStateSlice";
@@ -31,8 +31,7 @@ const AddExpenseModal = ({ defaultBudgetId }) => {
       categoryId: categoryIdRef.current.value,
     };
     dispatch(addUserExpense(newExpense));
-
-    // dispatch(fetchUserExpense());
+    dispatch(fetchUserExpenseByCategory());
     hide();
   };
   useEffect(() => {

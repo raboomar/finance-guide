@@ -2,6 +2,7 @@ import React from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { useState } from "react";
+import "./reansactionCars.css";
 const BarChart = ({ dataSet }) => {
   const [expenseChart, setExpenseChart] = useState({
     labels: dataSet.map((data) => data.category_name),
@@ -13,7 +14,11 @@ const BarChart = ({ dataSet }) => {
     ],
   });
 
-  return <Doughnut data={expenseChart} />;
+  return (
+    <div className="doughnut-chart">
+      <Doughnut data={expenseChart} />
+    </div>
+  );
 };
 
 export default BarChart;

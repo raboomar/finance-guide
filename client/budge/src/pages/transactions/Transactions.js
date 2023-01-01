@@ -17,6 +17,7 @@ const Transactions = () => {
   const { user } = useSelector((state) => state.user);
   const { expense, isLoading, expenseByCategoryIsLoading, expenseByCategory } =
     useSelector((state) => state.expense);
+  const { monthNum, inDate } = useSelector((state) => state.month);
 
   useEffect(() => {
     if (!user) {
@@ -31,10 +32,20 @@ const Transactions = () => {
   if (isLoading || expenseByCategoryIsLoading) {
     return <h1>Loading.....</h1>;
   }
+  if (expense.length === 0) {
+    return (
+      <div>
+        <Month />
+        <h3>No expense for {inDate}</h3>
+        <AddExpenseBtn />
+      </div>
+    );
+  }
 
   return (
     <>
       <Month />
+
       <BarChart dataSet={expenseByCategory} />
 
       <div className="transactions-btns">

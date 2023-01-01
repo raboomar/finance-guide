@@ -11,12 +11,18 @@ const initialState = {
 
 export const fetchUserExpense = createAsyncThunk(
   "/userExpense",
-  async (user, thunkAPI) => {
+  async (updatedMonth, thunkAPI) => {
     try {
       const token = thunkAPI.getState().user.user.token;
       const month = thunkAPI.getState().month.monthNum;
       const year = thunkAPI.getState().month.year;
-      return await expenseUtils.fetchUserExpense(token, month, year);
+
+      return await expenseUtils.fetchUserExpense(
+        token,
+        month,
+        year,
+        updatedMonth
+      );
     } catch (error) {
       const message =
         (error.response &&
@@ -32,12 +38,17 @@ export const fetchUserExpense = createAsyncThunk(
 
 export const fetchUserExpenseByCategory = createAsyncThunk(
   "/userExpenseCategory",
-  async (user, thunkAPI) => {
+  async (updatedMonth, thunkAPI) => {
     try {
       const token = thunkAPI.getState().user.user.token;
       const month = thunkAPI.getState().month.monthNum;
       const year = thunkAPI.getState().month.year;
-      return await expenseUtils.fetchUserExpenseByCategory(token, month, year);
+      return await expenseUtils.fetchUserExpenseByCategory(
+        token,
+        month,
+        year,
+        updatedMonth
+      );
     } catch (error) {
       const message =
         (error.response &&

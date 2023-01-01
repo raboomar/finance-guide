@@ -1,11 +1,11 @@
 import axios from "axios";
 import moment from "moment/moment";
 let URL = process.env.REACT_APP_BACKEND_URL;
-const fetchUserExpense = async (token, month, year) => {
+const fetchUserExpense = async (token, month, year, updatedMonth) => {
   let config = {
     headers: {
-      month: month,
-      year: year,
+      month: updatedMonth?.pickedMonth ? updatedMonth.pickedMonth : month,
+      year: updatedMonth?.pickedYear ? updatedMonth.pickedYear : year,
       "x-auth-token": token,
     },
   };
@@ -14,11 +14,11 @@ const fetchUserExpense = async (token, month, year) => {
   return res.data;
 };
 
-const fetchUserExpenseByCategory = async (token, month, year) => {
+const fetchUserExpenseByCategory = async (token, month, year, updatedMonth) => {
   let config = {
     headers: {
-      month,
-      year,
+      month: updatedMonth?.pickedMonth ? updatedMonth.pickedMonth : month,
+      year: updatedMonth?.pickedYear ? updatedMonth.pickedYear : year,
       "x-auth-token": token,
     },
   };
