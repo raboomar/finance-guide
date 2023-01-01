@@ -15,9 +15,7 @@ const registerUser = async (request, response) => {
       email,
     ]);
     if (results.length !== 0) {
-      return response
-        .status(400)
-        .json({ errors: [{ msg: "User already exists" }] });
+      return response.status(400).send("User already exists");
     }
 
     const salt = await bcrypt.genSalt(10);
