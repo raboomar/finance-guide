@@ -1,9 +1,7 @@
 import React from "react";
 import Tab from "react-bootstrap/Tab";
 import Login from "../../components/auth/Login";
-import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
-import Row from "react-bootstrap/Row";
 import "./auth.css";
 import Register from "../../components/auth/Register";
 const Auth = () => {

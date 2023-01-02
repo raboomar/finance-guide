@@ -16,4 +16,12 @@ justify-content: space-between;
 .doughnut-chart{ 
   width: 400px;
   margin: auto;
+  position: relative;
+}
+
+.total-amount{
+position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

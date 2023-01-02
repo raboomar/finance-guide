@@ -106,7 +106,24 @@ export const deleteTransaction = createAsyncThunk(
 export const expenseSlice = createSlice({
   name: "expense",
   initialState,
-  reducers: {},
+  reducers: {
+    sortExpense: (state, sortBy) => {
+      let whatToSortBy = sortBy.payload;
+      let copy = [...state.expense];
+      copy.sort((a, b) => {
+        const nameA = a[whatToSortBy].toUpperCase();
+        const nameB = b[whatToSortBy].toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+      state.expense = copy;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserExpense.pending, (state) => {
@@ -156,5 +173,5 @@ export const expenseSlice = createSlice({
   },
 });
 
-export const { fetchExpense, addExpense } = expenseSlice.actions;
+export const { sortExpense } = expenseSlice.actions;
 export default expenseSlice.reducer;
